@@ -12,6 +12,7 @@ using namespace std;
 class Graph {
 public:
     explicit Graph(char* words[], int len);
+    explicit Graph(int n);
     void countChains(vector<string>& resultBuf);
 
     bool hasCircle();
@@ -22,8 +23,14 @@ public:
 
     void regularValue();
 
+    void cleanColor(); 
+    void reverseGraph(Graph& graph);
+    void dfsOrder(int u, vector<int>& order);
+    void getSCC();
+
 private:
     vector<Node> nodes;
+    vector< vector<int> > SCCs;
 };
 
 #endif

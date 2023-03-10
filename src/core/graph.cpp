@@ -16,6 +16,13 @@ Graph::Graph(char* words[], int len) {
     }
 }
 
+Graph::Graph(int n) {
+    for (int i = 0; i < n; i++) {
+        Node node;
+        nodes.push_back(node);
+    }
+}
+
 bool Graph::hasCircle() {
     bool circle = false; 
     for (int i = 0; i < nodes.size(); i++) {
@@ -161,4 +168,60 @@ void Graph::regularValue() {
             e->value = 1;
         }
     }
+}
+
+void Graph::cleanColor() {
+    for (auto node = nodes.begin(); node != nodes.end(); node++) {
+        node->color = WHITE;  
+    }
+}
+
+void Graph::reverseGraph(Graph& graph) {
+    for (auto node = graph.nodes.begin(); node != graph.nodes.end(); node++) {
+        for (auto e = node->edges.begin(); e != node->edges.end(); e++) {
+            string word = e->word;
+            reverse(word.begin(), word.end());
+            Edge edge(word);
+            this->nodes[word.at(0) - 'a'].addEdge(edge);
+        }
+    }
+}
+
+void Graph::dfsOrder(int u, vector<int>& order) {
+    nodes[u].color = GRAY;
+    for (auto e = nodes[u].edges.begin(); e != nodes[u].edges.end(); e++) {
+        int v = e->to;
+        if (nodes[v].color == WHITE) {
+            dfsOrder(v, order); 
+        }
+    }
+    order.push_back(u);
+}
+
+void Graph::getSCC() {
+    Graph rGraph(26);
+    rGraph.reverseGraph(*this);
+    vector<int> order;
+    for (auto node = rGraph.nodes.begin(); node != rGraph.nodes.end(); node++) {
+        if (node->color == WHITE) {
+            rGraph.dfsOrder(node - rGraph.nodes.begin(), order);
+        }
+    }
+    
+    vector<int> SCC; 
+    cleanColor();
+    for (int i = order.size() - 1; i >= 0; i--) {
+        if (nodes[order[i]].color == WHITE) {
+            dfsOrder(order[i], SCC);
+            SCCs.push_back(SCC);
+            SCC.clear();
+        }
+    }
+
+    // for (auto scc = SCCs.begin(); scc != SCCs.end(); scc++) {
+    //     for (auto i = scc->begin(); i != scc->end(); i++) {
+    //         cout << char(*i + 'a') << " ";
+    //     }
+    //     cout << endl;
+    // }
 }
