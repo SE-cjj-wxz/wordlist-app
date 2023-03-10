@@ -85,17 +85,18 @@ void Graph::initNodeValue(char head) {
         for (int i = 0; i < nodes.size(); i++) {
             nodes[i].value = 0;
         }
-    }
-    for (int i = 0; i < nodes.size(); i++) {
-        if (i == head - 'a') {
-            nodes[i].value = 0;
-        } else {
-            nodes[i].value = -1; 
+    } else {
+        for (int i = 0; i < nodes.size(); i++) {
+            if (i == head - 'a') {
+                nodes[i].value = 0;
+            } else {
+                nodes[i].value = -1; 
+            }
         }
     }
 }
 
-void Graph::getLongestWordChain(vector<string>& resultBuf, char head, char tail, char ban, bool allow_circle) {
+void Graph::getLongestChain(vector<string>& resultBuf, char head, char tail, char ban, bool allow_circle) {
     if (!allow_circle && hasCircle()) {
         throw exception(); // illegal circle
     }
@@ -104,6 +105,57 @@ void Graph::getLongestWordChain(vector<string>& resultBuf, char head, char tail,
     }
     initNodeValue(head); //deal -h 
 
-    
+    queue< vector<Node>::iterator > q;
+    for (auto it = nodes.begin(); it != nodes.end(); it++) {
+        if (it->degree == 0) {
+            if (it->value >= 0) {
+                it->value += it->circleValue;
+            }
+            q.push(it);
+        }
+    }
 
+    while (!q.empty()) {
+        auto node = q.front();
+        q.pop();
+        for (auto e = node->edges.begin(); e != node->edges.end(); e++) {
+            int v = e->to;
+            nodes[v].degree--;
+            if (node->value >= 0 && node->value + e->value > nodes[v].value) {
+                nodes[v].value = node->value + e->value;
+                nodes[v].prev = &(*e);
+            }
+            if (nodes[v].degree == 0) { 
+                if (nodes[v].value >= 0) {
+                    nodes[v].value += nodes[v].circleValue;
+                }
+                q.push(nodes.begin() + v);
+            }
+        }
+    }    
+
+    int maxLen = -1;
+    Edge* e;
+
+    for (auto it = nodes.begin(); it != nodes.end(); it++) {
+        if (it->value > maxLen) {
+            maxLen = it->value;
+            e = it->prev;
+        }
+    }
+
+    while (e) {
+        resultBuf.push_back(e->word);
+        e = nodes[e->word.at(0) - 'a'].prev; 
+    }
+    reverse(resultBuf.begin(), resultBuf.end());
+}
+
+void Graph::regularValue() {
+    for (auto it = nodes.begin(); it != nodes.end(); it++) {
+        it->circleValue = it->circle.size();
+        for (auto e = it->edges.begin(); e != it->edges.end(); e++) {
+            e->value = 1;
+        }
+    }
 }

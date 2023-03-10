@@ -14,6 +14,7 @@ public:
     int degree;
     int circleValue;
     int value;
+    Edge* prev;
     vector<string> circle;
     vector<Edge> edges;
     vector<string> result;

@@ -5,6 +5,7 @@ Node::Node() {
     degree = 0;
     value = 0;
     circleValue = 0;
+    prev = 0;
 }
 
 void Node::addEdge(Edge e) {
@@ -40,12 +41,17 @@ void Node::countSelfCircle() {
 
 void Node::removeSingleChain() {
     for (auto r = result.begin(); r != result.end(); ) {
+        bool flag = false;
         for (int i = 0; i < r->size(); i++) {
             if (r->at(i) == ' ') {
-                r++;
+                flag = true;
                 break;
             }
         }
-        result.erase(r);
+        if (!flag) {
+            result.erase(r);
+        } else {
+            r++;
+        }
     }
 }
