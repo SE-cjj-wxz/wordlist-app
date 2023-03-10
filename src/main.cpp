@@ -151,7 +151,7 @@ int main(int argc, char* argv[]) {
 
         for (int i = 0; i < ret; i++) {
             string s = result[i];
-            cout << result << endl;
+            cout << s << endl;
         }
 
     } catch (exception& e) {
