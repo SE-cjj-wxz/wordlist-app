@@ -69,3 +69,41 @@ void Graph::countChains(vector<string>& resultBuf) {
         resultBuf.insert(resultBuf.end(), it->result.begin(), it->result.end());
     }
 }
+
+void Graph::removeEdgeByHead(int u) {
+    for (auto e = nodes[u].edges.begin(); e != nodes[u].edges.end(); e++) {
+        nodes[e->to].degree--;
+    }
+    nodes[u].edges.clear(); 
+    nodes[u].circle.clear();
+    nodes[u].value = 0;
+    nodes[u].circleValue = 0;
+}
+
+void Graph::initNodeValue(char head) {
+    if (head == '\0') {
+        for (int i = 0; i < nodes.size(); i++) {
+            nodes[i].value = 0;
+        }
+    }
+    for (int i = 0; i < nodes.size(); i++) {
+        if (i == head - 'a') {
+            nodes[i].value = 0;
+        } else {
+            nodes[i].value = -1; 
+        }
+    }
+}
+
+void Graph::getLongestWordChain(vector<string>& resultBuf, char head, char tail, char ban, bool allow_circle) {
+    if (!allow_circle && hasCircle()) {
+        throw exception(); // illegal circle
+    }
+    if (ban != '\0') {
+        removeEdgeByHead(ban - 'a');
+    }
+    initNodeValue(head); //deal -h 
+
+    
+
+}

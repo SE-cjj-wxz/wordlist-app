@@ -12,8 +12,9 @@ class Node {
 public: 
     int color;
     int degree;
-    vector<string> circle;
+    int circleValue;
     int value;
+    vector<string> circle;
     vector<Edge> edges;
     vector<string> result;
 

@@ -11,9 +11,13 @@ using namespace std;
 class Graph {
 public:
     explicit Graph(char* words[], int len);
+    void countChains(vector<string>& resultBuf);
+
     bool hasCircle();
     void dfsCircle(int, bool&);
-    void countChains(vector<string>& resultBuf);
+    void removeEdgeByHead(int u);
+    void initNodeValue(char head);
+    void getLongestWordChain(vector<string>& resultBuf, char head, char tail, char ban, bool allow_circle);
 
 private:
     vector<Node> nodes;

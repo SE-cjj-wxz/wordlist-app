@@ -4,12 +4,13 @@ Node::Node() {
     color = WHITE;
     degree = 0;
     value = 0;
+    circleValue = 0;
 }
 
 void Node::addEdge(Edge e) {
     if (e.isCircle()) {
         circle.push_back(e.word);
-        value += e.word.size();
+        circleValue += e.word.size();
     } else {
         edges.push_back(e); 
     }
