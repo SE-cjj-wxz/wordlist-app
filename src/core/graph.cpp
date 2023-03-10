@@ -208,20 +208,20 @@ void Graph::getSCC() {
         }
     }
     
-    vector<int> SCC; 
+    vector<int> indices;
+    vector<Node> gNodes;
     cleanColor();
     for (int i = order.size() - 1; i >= 0; i--) {
         if (nodes[order[i]].color == WHITE) {
-            dfsOrder(order[i], SCC);
-            SCCs.push_back(SCC);
-            SCC.clear();
+            dfsOrder(order[i], indices);
+            for (int j = 0; j < indices.size(); j++) {
+                gNodes.push_back(nodes[j]);
+            }
+            SCC scc(indices, gNodes);
+            SCCs.push_back(scc); 
+            indices.clear();
+            gNodes.clear();
         }
     }
-
-    // for (auto scc = SCCs.begin(); scc != SCCs.end(); scc++) {
-    //     for (auto i = scc->begin(); i != scc->end(); i++) {
-    //         cout << char(*i + 'a') << " ";
-    //     }
-    //     cout << endl;
-    // }
 }
+

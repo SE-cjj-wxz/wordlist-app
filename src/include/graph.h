@@ -7,6 +7,7 @@
 #include <queue>
 #include <iostream>
 #include <algorithm>
+#include "scc.h"
 using namespace std; 
 
 class Graph {
@@ -30,7 +31,7 @@ public:
 
 private:
     vector<Node> nodes;
-    vector< vector<int> > SCCs;
+    vector<SCC> SCCs;
 };
 
 #endif
