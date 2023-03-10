@@ -135,19 +135,22 @@ void Graph::getLongestChain(vector<string>& resultBuf, char head, char tail, cha
     }    
 
     int maxLen = -1;
-    Edge* e;
+    vector<Node>::iterator node;
 
     for (auto it = nodes.begin(); it != nodes.end(); it++) {
         if (it->value > maxLen) {
             maxLen = it->value;
-            e = it->prev;
+            node = it;
         }
     }
 
-    while (e) {
-        resultBuf.push_back(e->word);
-        e = nodes[e->word.at(0) - 'a'].prev; 
+    while (node->prev) {
+        resultBuf.insert(resultBuf.end(), node->circle.begin(), node->circle.end());
+        resultBuf.push_back(node->prev->word);
+        node = node->prev->word.at(0) - 'a' + nodes.begin();
     }
+    resultBuf.insert(resultBuf.end(), node->circle.begin(), node->circle.end());
+    
     reverse(resultBuf.begin(), resultBuf.end());
 }
 
