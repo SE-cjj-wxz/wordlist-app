@@ -9,15 +9,17 @@
 #define BLACK 2
 
 class Node {
-private:
+public: 
     char ch; 
     int color;
     int degree;
+    int circle;
     int value;
     vector<Edge> edges;
     vector<string> result;
-public: 
+
     explicit Node(char c);
+    void addEdge(Edge e);
 };
 
 

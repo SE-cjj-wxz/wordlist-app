@@ -10,6 +10,8 @@ using namespace std;
 class Graph {
 public:
     explicit Graph(char* words[], int len);
+    bool hasCircle();
+    void dfsCircle(int, bool&);
 
 private:
     vector<Node> nodes;

@@ -5,12 +5,16 @@
 using namespace std; 
 
 class Edge {
-private:
+public:
     string word;
     int value;
     char to;
-public:
-    Edge(string w, int v, char t): word(w), value(v), to(t) {}
+
+    explicit Edge(string w, int v, char t): word(w), value(v), to(t) {}
+    
+    bool isCircle() {
+        return word.at(0) == word.at(word.size() - 1);  
+    }
 };
 
 #endif 

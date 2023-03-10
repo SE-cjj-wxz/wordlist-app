@@ -1,6 +1,7 @@
 #ifndef _CORE_H_
 #define _CORE_H_
 
+#include "graph.h"
 
 int countChains(char ** words, int length, char * result[]);
 
