@@ -28,6 +28,8 @@ public:
     void reverseGraph(Graph& graph);
     void dfsOrder(int u, vector<int>& order);
     void getSCC();
+    void getLongestChainOnCircle(vector<string>& resultBuf, char head, char tail, char ban);
+    void addSCCPath(vector<string>& resultBuf, int u, int v);
 
 private:
     vector<Node> nodes;
