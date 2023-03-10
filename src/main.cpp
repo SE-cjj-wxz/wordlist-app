@@ -146,6 +146,14 @@ int main(int argc, char* argv[]) {
         } else if (opt2val.count('c') > 0) {
             ret = getLongestCharChain(words, length, result, head, tail, ban, allow_circle);
         }
+
+        cout << ret << endl;
+
+        for (int i = 0; i < ret; i++) {
+            string s = result[i];
+            cout << result << endl;
+        }
+
     } catch (exception& e) {
         string err = e.what();
         cout << "error: " + err << endl; 
