@@ -10,16 +10,19 @@
 
 class Node {
 public: 
-    char ch; 
     int color;
     int degree;
-    int circle;
+    vector<string> circle;
     int value;
     vector<Edge> edges;
     vector<string> result;
 
-    explicit Node(char c);
+    explicit Node();
     void addEdge(Edge e);
+    
+    void mergeResult(vector<Node>::iterator, Edge);
+    void countSelfCircle(); // deal self circle
+    void removeSingleChain();
 };
 
 

@@ -8,9 +8,12 @@ class Edge {
 public:
     string word;
     int value;
-    char to;
+    int to;
 
-    explicit Edge(string w, int v, char t): word(w), value(v), to(t) {}
+    explicit Edge(string w): word(w) {
+        value = word.size();
+        to = word.at(value - 1) - 'a';
+    }
     
     bool isCircle() {
         return word.at(0) == word.at(word.size() - 1);  
