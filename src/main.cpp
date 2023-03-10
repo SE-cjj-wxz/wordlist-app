@@ -4,6 +4,13 @@ bool isAlpha(char ch) {
     return ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')); 
 }
 
+char lower(char ch) {
+    if (ch >= 'A' && ch <= 'Z') {
+        return ch - 'A' + 'a';
+    }
+    return ch;
+}
+
 bool isOption(string opt) {
     set<string> opts = {"-n", "-w", "-c", "-r"};
     return (opts.count(opt) != 0);
@@ -101,7 +108,7 @@ int readWords(string fileName, char** words) {
         data += "\n";
         for (int i = 0; i < data.size(); i++) {
             if (isAlpha(data.at(i))) {
-                wordBuf.push_back(data.at(i));
+                wordBuf.push_back(lower(data.at(i)));
             } else {
                 if (wordBuf.size() > 0) {
                     wordBuf.push_back('\0');
