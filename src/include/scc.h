@@ -7,9 +7,12 @@ class SCC {
 public:
     vector<Node> nodes;
     int map[30]; // map SCC node to Graph node
-    vector<string>* path[30][30];
+    vector<vector<Edge>::iterator> path[30][30];
+    int pathValue[30][30];
     
     explicit SCC(vector<int>& indices, vector<Node>& gNodes);
+    void getLongestDist();
+    void dfs(int u, int root, vector<vector<Edge>::iterator>& path, int value);
 };
 
 #endif

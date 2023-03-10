@@ -15,4 +15,34 @@ SCC::SCC(vector<int>& indices, vector<Node>& gNodes) {
             edge.to = map[e->to];
         }
     }
+    for (int i = 0; i < 26; i++) {
+        for (int j = 0; j < 26; j++) {
+            pathValue[i][j] = 0; 
+        }
+    }
 }
+
+void SCC::getLongestDist() {
+    for (int i = 0; i < nodes.size(); i++) {
+        vector<vector<Edge>::iterator> path;
+        dfs(i, i, path, 0); 
+    }
+}
+
+void SCC::dfs(int u, int root, vector<vector<Edge>::iterator>& path, int value) {
+    if (value > pathValue[root][u]) {
+        pathValue[root][u] = value;
+        this->path[root][u] = path;
+    }
+    for (auto e = nodes[u].edges.begin(); e != nodes[u].edges.end(); e++) {
+        int v = e->to;
+        if (e->color == WHITE) {
+            e->color = GRAY;
+            path.push_back(e);
+            dfs(v, root, path, value + e->value);
+            e->color = WHITE;
+            path.pop_back();
+        }
+    }
+}
+
