@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GUI</class>
+ <widget class="QMainWindow" name="GUI">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GUI</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QWidget" name="verticalWidget" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetNoConstraint</enum>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_18">
+         <item>
+          <widget class="QLabel" name="label_26">
+           <property name="text">
+            <string>请输入单词文本或者选择文件上传：</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="uploadFile">
+           <property name="maximumSize">
+            <size>
+             <width>90</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>上传头像</string>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton{
+	font-family:微软雅黑;
+	background-color: rgb(248, 248, 248);
+}
+QPushButton:hover{
+	font-family:微软雅黑;
+	background-color: rgb(233, 237, 238);
+}
+QPushButton:pressed{
+	font-family:微软雅黑;
+	background-color: rgb(233, 237, 238);
+}
+</string>
+           </property>
+           <property name="text">
+            <string>上传文件</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_17">
+         <item>
+          <widget class="QPlainTextEdit" name="inputText"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <property name="spacing">
+            <number>15</number>
+           </property>
+           <property name="sizeConstraint">
+            <enum>QLayout::SetMinimumSize</enum>
+           </property>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_14">
+             <item>
+              <widget class="QLabel" name="label_20">
+               <property name="text">
+                <string>功能型参数（必选）</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="opt">
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
+               <item>
+                <property name="text">
+                 <string>-n：所有单词链</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-w：最多单词链</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>-c：最长字母链</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_15">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_12">
+               <item>
+                <widget class="QLabel" name="label_21">
+                 <property name="text">
+                  <string>辅助型参数（可选）</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout">
+                 <item>
+                  <widget class="QLabel" name="label_22">
+                   <property name="text">
+                    <string>-h（指定首字母）：</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="head">
+                   <item>
+                    <property name="text">
+                     <string>无</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>a</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>b</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>c</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>d</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>e</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>f</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>g</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>h</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>i</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>j</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>k</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>l</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>m</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>n</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>o</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>p</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>q</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>r</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>s</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>t</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>u</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>v</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>w</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>x</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>y</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>z</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_3">
+                 <item>
+                  <widget class="QLabel" name="label_23">
+                   <property name="text">
+                    <string>-t（指定尾字母）：</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="tail">
+                   <item>
+                    <property name="text">
+                     <string>无</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>a</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>b</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>c</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>d</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>e</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>f</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>g</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>h</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>i</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>j</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>k</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>l</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>m</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>n</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>o</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>p</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>q</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>r</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>s</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>t</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>u</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>v</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>w</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>x</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>y</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>z</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                 <item>
+                  <widget class="QLabel" name="label_24">
+                   <property name="text">
+                    <string>-j（禁用首字母）：</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="ban">
+                   <item>
+                    <property name="text">
+                     <string>无</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>a</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>b</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>c</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>d</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>e</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>f</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>g</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>h</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>i</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>j</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>k</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>l</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>m</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>n</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>o</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>p</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>q</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>r</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>s</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>t</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>u</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>v</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>w</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>x</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>y</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>z</string>
+                    </property>
+                   </item>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QRadioButton" name="circle">
+                 <property name="text">
+                  <string>-r（是否允许环）</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_16">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_13">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_11">
+                 <property name="spacing">
+                  <number>6</number>
+                 </property>
+                 <item>
+                  <widget class="QPushButton" name="calculate">
+                   <property name="whatsThis">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;QPushButton{&lt;/p&gt;&lt;p&gt;	font-family:微软雅黑;&lt;/p&gt;&lt;p&gt;	background-color: rgb(248, 248, 248);&lt;/p&gt;&lt;p&gt;}&lt;/p&gt;&lt;p&gt;QPushButton:hover{&lt;/p&gt;&lt;p&gt;	font-family:微软雅黑;&lt;/p&gt;&lt;p&gt;	background-color: rgb(233, 237, 238);&lt;/p&gt;&lt;p&gt;}&lt;/p&gt;&lt;p&gt;QPushButton:pressed{&lt;/p&gt;&lt;p&gt;	font-family:微软雅黑;&lt;/p&gt;&lt;p&gt;	background-color: rgb(233, 237, 238);&lt;/p&gt;&lt;p&gt;}&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton{
+	font-family:微软雅黑;
+	background-color: rgb(248, 248, 248);
+}
+QPushButton:hover{
+	font-family:微软雅黑;
+	background-color: rgb(233, 237, 238);
+}
+QPushButton:pressed{
+	font-family:微软雅黑;
+	background-color: rgb(233, 237, 238);
+}
+</string>
+                   </property>
+                   <property name="text">
+                    <string>开始计算</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="saveFile">
+                   <property name="styleSheet">
+                    <string notr="true">QPushButton{
+	font-family:微软雅黑;
+	background-color: rgb(248, 248, 248);
+}
+QPushButton:hover{
+	font-family:微软雅黑;
+	background-color: rgb(233, 237, 238);
+}
+QPushButton:pressed{
+	font-family:微软雅黑;
+	background-color: rgb(233, 237, 238);
+}
+</string>
+                   </property>
+                   <property name="text">
+                    <string>导出结果</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QLabel" name="timer">
+                 <property name="text">
+                  <string>用时：0.05s</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="outputText"/>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
