@@ -23,7 +23,11 @@ int getLongestWordChain(char** words, int length, char* result[], char head,
     Graph graph(words, length);
     vector<string> resultBuf;
     graph.regularValue();
-    graph.getLongestChain(resultBuf, head, tail, ban, allow_circle);
+    if (allow_circle) {
+        graph.getLongestChainOnCircle(resultBuf, head, tail, ban);
+    } else {
+        graph.getLongestChain(resultBuf, head, tail, ban, allow_circle);
+    }
     convert(result, resultBuf);
     return resultBuf.size();
 }
@@ -32,7 +36,11 @@ int getLongestCharChain(char** words, int length, char* result[], char head,
                         char tail, char ban, bool allow_circle) {
     Graph graph(words, length);
     vector<string> resultBuf;
-    graph.getLongestChain(resultBuf, head, tail, ban, allow_circle);
+    if (allow_circle) {
+        graph.getLongestChainOnCircle(resultBuf, head, tail, ban);
+    } else {
+        graph.getLongestChain(resultBuf, head, tail, ban, allow_circle);
+    }
     convert(result, resultBuf);
     return resultBuf.size();
 }

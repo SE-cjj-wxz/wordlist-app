@@ -1,4 +1,5 @@
 #include "scc.h"
+#include <iostream>
 
 SCC::SCC(vector<int>& indices, vector<Node>& gNodes) {
     for (int i = 0; i < indices.size(); i++) {
@@ -14,6 +15,7 @@ SCC::SCC(vector<int>& indices, vector<Node>& gNodes) {
             Edge edge(e->word);
             edge.value = e->value;
             edge.to = map[e->to];
+            nodes[i].addEdge(edge);
         }
     }
     for (int i = 0; i < 26; i++) {
@@ -21,29 +23,42 @@ SCC::SCC(vector<int>& indices, vector<Node>& gNodes) {
             pathValue[i][j] = 0; 
         }
     }
+    // print(); 
+}
+
+void SCC::print() {
+    for (int i = 0; i < nodes.size(); i++) {
+        cout << char(indices[i] + 'a') << ": ";
+        for (auto e = nodes[i].edges.begin(); e != nodes[i].edges.end(); e++) {
+            cout << char(indices[e->to] + 'a') << " ";
+        }
+        cout << endl;
+    }
 }
 
 void SCC::getLongestDist() {
     for (int i = 0; i < nodes.size(); i++) {
-        vector<vector<Edge>::iterator> path;
+        vector<string> path;
         dfs(i, i, path, 0); 
     }
 }
 
-void SCC::dfs(int u, int root, vector<vector<Edge>::iterator>& path, int value) {
+void SCC::dfs(int u, int root, vector<string>& path, int value) {
     for (auto e = nodes[u].circle.begin(); e != nodes[u].circle.end(); e++) {
-        path.push_back(e);
+        path.push_back(e->word);
         value += e->value; 
     }
+
     if (value > pathValue[root][u]) {
         pathValue[root][u] = value;
-        this->path[root][u] = path;
+        this->path[root][u] = path; 
     }
+
     for (auto e = nodes[u].edges.begin(); e != nodes[u].edges.end(); e++) {
         int v = e->to;
         if (e->color == WHITE) {
             e->color = GRAY;
-            path.push_back(e);
+            path.push_back(e->word);
             dfs(v, root, path, value + e->value);
             e->color = WHITE;
             path.pop_back();

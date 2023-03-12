@@ -225,7 +225,7 @@ void Graph::getSCC() {
         if (nodes[order[i]].color == WHITE) {
             dfsOrder(order[i], indices);
             for (int j = 0; j < indices.size(); j++) {
-                gNodes.push_back(nodes[j]);
+                gNodes.push_back(nodes[indices[j]]);
             }
             SCC scc(indices, gNodes);
             SCCs.push_back(scc); 
@@ -256,12 +256,17 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
         }
         for (int i = 0; i < scc->indices.size(); i++) {
             int v = scc->indices[i];
+            int maxu = -1;
             for (int j = 0; j < scc->indices.size(); j++) {
                 int u = scc->indices[j];
                 if (tempValue[j] >= 0 && tempValue[j] + scc->pathValue[u][v] > nodes[v].value) {
                     nodes[v].value = tempValue[j] + scc->pathValue[u][v];
-                    nodes[v].preNode = u;
+                    maxu = u;
                 }
+            }
+            if (maxu >= 0) {
+                nodes[v].result = nodes[maxu].result;
+                nodes[v].result.insert(nodes[v].result.end(), scc->path[maxu][v].begin(), scc->path[maxu][v].end());
             }
         }
         for (int i = 0; i < scc->indices.size(); i++) {
@@ -271,12 +276,14 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
                 if (find(scc->indices.begin(), scc->indices.end(), v) == scc->indices.end()) {
                     if (nodes[u].value >= 0 && nodes[u].value + e->value > nodes[v].value) {
                         nodes[v].value = nodes[u].value + e->value;
+                        nodes[v].result = nodes[u].result;
+                        nodes[v].result.push_back(e->word);
                     }
                 }
             }
         }
     }
-    
+
     int maxLen = 0;
     vector<Node>::iterator node;
 
@@ -290,32 +297,5 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
         }
     }
 
-    while (node->prev && node->preNode >= 0) {
-        for (auto e = node->circle.begin(); e != node->circle.end(); e++) {
-            resultBuf.push_back(e->word);
-        }
-        if (node->prev) {
-            resultBuf.push_back(node->prev->word);
-            node = node->prev->word.at(0) - 'a' + nodes.begin();
-        } else {
-            addSCCPath(resultBuf, node->preNode, node - nodes.begin());
-            node = node->preNode + nodes.begin(); 
-        }
-    }
-    for (auto e = node->circle.begin(); e != node->circle.end(); e++) {
-        resultBuf.push_back(e->word);
-    }
-    
-    reverse(resultBuf.begin(), resultBuf.end());
-}
-
-void Graph::addSCCPath(vector<string>& resultBuf, int u, int v) {
-    for (auto scc = SCCs.begin(); scc != SCCs.end(); scc++) {
-        if (find(scc->indices.begin(), scc->indices.end(), u) != scc->indices.end()) {
-            for (int i = scc->path[u][v].size() - 1; i >= 0; i--) {
-                auto e = scc->path[u][v][i];
-                resultBuf.push_back(e->word);
-            }
-        }
-    }
+    resultBuf = node->result; 
 }
