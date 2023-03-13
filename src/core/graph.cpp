@@ -249,6 +249,13 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
 
     reverse(SCCs.begin(), SCCs.end());  //toposort
 
+    // for (auto scc = SCCs.begin(); scc != SCCs.end(); scc++) {
+    //     for (int i = 0; i < scc->indices.size(); i++) {
+    //         cout << char(scc->indices[i] + 'a') << " ";
+    //     }
+    //      cout << endl;
+    // } 
+
     for (auto scc = SCCs.begin(); scc != SCCs.end(); scc++) {
         vector<int> tempValue;
         for (int i = 0; i < scc->indices.size(); i++) {
@@ -256,17 +263,17 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
         }
         for (int i = 0; i < scc->indices.size(); i++) {
             int v = scc->indices[i];
-            int maxu = -1;
+            int maxj = -1;
             for (int j = 0; j < scc->indices.size(); j++) {
                 int u = scc->indices[j];
-                if (tempValue[j] >= 0 && tempValue[j] + scc->pathValue[u][v] > nodes[v].value) {
-                    nodes[v].value = tempValue[j] + scc->pathValue[u][v];
-                    maxu = u;
+                if (tempValue[j] >= 0 && tempValue[j] + scc->pathValue[j][i] > nodes[v].value) {
+                    nodes[v].value = tempValue[j] + scc->pathValue[j][i];
+                    maxj = i;
                 }
             }
-            if (maxu >= 0) {
-                nodes[v].result = nodes[maxu].result;
-                nodes[v].result.insert(nodes[v].result.end(), scc->path[maxu][v].begin(), scc->path[maxu][v].end());
+            if (maxj >= 0) {
+                nodes[v].result = nodes[scc->indices[maxj]].result;
+                nodes[v].result.insert(nodes[v].result.end(), scc->path[maxj][i].begin(), scc->path[maxj][i].end());
             }
         }
         for (int i = 0; i < scc->indices.size(); i++) {
@@ -288,6 +295,7 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
     vector<Node>::iterator node;
 
     for (auto it = nodes.begin(); it != nodes.end(); it++) {
+        // cout << char(it - nodes.begin() + 'a') << ": " << it->value << endl;
         if (tail != '\0' && tail != it - nodes.begin() + 'a') {
             continue;
         }
