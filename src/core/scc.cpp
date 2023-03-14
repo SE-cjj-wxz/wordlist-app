@@ -54,6 +54,8 @@ void SCC::dfs(int u, int root, vector<string>& path, int value) {
         path.push_back(e->word);
     }
     value += nodes[u].circleValue;
+    nodes[u].circle.clear();
+    nodes[u].circleValue = 0;
 
     if (value > pathValue[root][u]) {
         pathValue[root][u] = value;
