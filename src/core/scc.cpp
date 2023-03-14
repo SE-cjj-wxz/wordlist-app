@@ -4,9 +4,9 @@
 SCC::SCC(vector<int>& indices, vector<Node>& gNodes) {
     for (int i = 0; i < indices.size(); i++) {
         Node node;
-        nodes.push_back(node);
         node.circle = gNodes[i].circle;
         node.circleValue = gNodes[i].circleValue;
+        nodes.push_back(node);
         this->indices = indices;
     }
     for (int i = 0; i < gNodes.size(); i++) {
@@ -50,11 +50,10 @@ void SCC::getLongestDist() {
 }
 
 void SCC::dfs(int u, int root, vector<string>& path, int value) {
-    // cout << char(indices[u]+'a') << " " << char(indices[root]+'a') << " " << value << endl;
     for (auto e = nodes[u].circle.begin(); e != nodes[u].circle.end(); e++) {
         path.push_back(e->word);
-        value += e->value; 
     }
+    value += nodes[u].circleValue;
 
     if (value > pathValue[root][u]) {
         pathValue[root][u] = value;
