@@ -107,6 +107,7 @@ void Graph::getLongestChain(vector<string>& resultBuf, char head, char tail, cha
     if (!allow_circle && hasCircle()) {
         throw exception(); // illegal circle
     }
+
     if (ban != '\0') {
         removeEdgeByHead(ban - 'a');
     }
@@ -117,6 +118,9 @@ void Graph::getLongestChain(vector<string>& resultBuf, char head, char tail, cha
         if (it->degree == 0) {
             if (it->value >= 0) {
                 it->value += it->circleValue;
+                if (it->circle.size() > 0) {
+                    it->result.push_back(it->circle[0].word);
+                }
             }
             q.push(it);
         }
@@ -130,19 +134,22 @@ void Graph::getLongestChain(vector<string>& resultBuf, char head, char tail, cha
             nodes[v].degree--;
             if (node->value >= 0 && node->value + e->value > nodes[v].value) {
                 nodes[v].value = node->value + e->value;
-                nodes[v].prev = &(*e);
+                nodes[v].result = node->result;
+                nodes[v].result.push_back(e->word);
             }
             if (nodes[v].degree == 0) { 
                 if (nodes[v].value >= 0) {
                     nodes[v].value += nodes[v].circleValue;
+                    if (nodes[v].circle.size() > 0) {
+                        nodes[v].result.push_back(nodes[v].circle[0].word);
+                    }
                 }
                 q.push(nodes.begin() + v);
             }
         }
     }    
-
     int maxLen = 0;
-    vector<Node>::iterator node;
+    vector<Node>::iterator node = nodes.end();
 
     for (auto it = nodes.begin(); it != nodes.end(); it++) {
         if (tail != '\0' && tail != it - nodes.begin() + 'a') {
@@ -153,19 +160,10 @@ void Graph::getLongestChain(vector<string>& resultBuf, char head, char tail, cha
             node = it;
         }
     }
-
-    while (node->prev) {
-        for (auto e = node->circle.begin(); e != node->circle.end(); e++) {
-            resultBuf.push_back(e->word);
-        }
-        resultBuf.push_back(node->prev->word);
-        node = node->prev->word.at(0) - 'a' + nodes.begin();
-    }
-    for (auto e = node->circle.begin(); e != node->circle.end(); e++) {
-        resultBuf.push_back(e->word);
-    }
     
-    reverse(resultBuf.begin(), resultBuf.end());
+    if (node != nodes.end()) {
+        resultBuf = node->result;
+    }
 }
 
 void Graph::regularValue() {
