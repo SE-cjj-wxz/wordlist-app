@@ -12,8 +12,7 @@ public:
     
     explicit SCC(vector<int>& indices, vector<Node>& gNodes);
     void getLongestDist();
-    void dfs(int u, int root, vector<string>& path, int value);
-    void print();
+    void dfs(int u, int root, vector<string>& path, vector<bool>& vis, int value);
 };
 
 #endif
