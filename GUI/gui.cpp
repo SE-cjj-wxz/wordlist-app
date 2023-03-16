@@ -104,6 +104,11 @@ GUI::GUI(QWidget *parent)
         char ban = ui->ban->currentIndex() > 0 ? ui->ban->currentIndex() - 1 + 'a' : '\0';
         bool allow_circle = ui->circle->isChecked();
 
+        if (head == ban && ban != '\0') {
+            QMessageBox::warning(this, "没有匹配的结果", "-h、-j不能带相同值");
+            return ;
+        }
+
         //异常情况处理
         //未输入文本
         if (input == "") {
@@ -128,12 +133,24 @@ GUI::GUI(QWidget *parent)
                     return ;
                 } else {
                     ret = countChains(words, length, result);
+                    if (ret == 0) {
+                        QMessageBox::warning(this, "没有匹配的结果", "未找到符合条件的单词链");
+                        return ;
+                    }
                     ans += std::to_string(ret) + '\n';
                 }
             } else if (opt == 1) {
                 ret = getLongestWordChain(words, length, result, head, tail, ban, allow_circle);
+                if (ret <= 1) {
+                    QMessageBox::warning(this, "没有匹配的结果", "未找到符合条件的单词链");
+                    return ;
+                }
             } else if (opt == 2) {
                 ret = getLongestCharChain(words, length, result, head, tail, ban, allow_circle);
+                if (ret <= 1) {
+                    QMessageBox::warning(this, "没有匹配的结果", "未找到符合条件的单词链");
+                    return ;
+                }
             }
             end = clock();
         } catch(std::exception &e) {
@@ -149,11 +166,11 @@ GUI::GUI(QWidget *parent)
         res = QString::fromStdString(ans);
         ui->outputText->setPlainText(res);
 
-        double distance = double(end - start) * 1000;
+        double distance = double(end - start) / 1000; //单位为s
 
         std::stringstream s;
         s << std::setprecision(15) << distance;
-        std::string timer = "用时：" + s.str() + "us";
+        std::string timer = "用时：" + s.str() + "s";
         ui->timer->setText(QString::fromStdString(timer));
 
         //释放核心链接库

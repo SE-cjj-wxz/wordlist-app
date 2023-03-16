@@ -50,6 +50,10 @@ void Graph::dfsCircle(int u, bool& circle) {
 }
 
 void Graph::countChains(vector<string>& resultBuf) {
+    if (hasCircle()) {
+        throw logic_error("there is a circle in the chain without -r");
+    }
+
     queue< vector<Node>::iterator > q;
     for (auto it = nodes.begin(); it != nodes.end(); it++) {
         if (it->degree == 0) {
@@ -105,7 +109,7 @@ void Graph::initNodeValue(char head) {
 
 void Graph::getLongestChain(vector<string>& resultBuf, char head, char tail, char ban, bool allow_circle) {
     if (!allow_circle && hasCircle()) {
-        throw exception(); // illegal circle
+        throw logic_error("there is a circle in the chain without -r");
     }
 
     if (ban != '\0') {
