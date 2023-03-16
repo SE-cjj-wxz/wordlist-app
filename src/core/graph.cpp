@@ -287,7 +287,7 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
     }
 
     int maxLen = 0;
-    vector<Node>::iterator node;
+    vector<Node>::iterator node = nodes.end();
 
     for (auto it = nodes.begin(); it != nodes.end(); it++) {
         // cout << char(it - nodes.begin() + 'a') << ": " << it->value << endl;
@@ -299,6 +299,7 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
             node = it;
         }
     }
-
-    resultBuf = node->result; 
+    if (node != nodes.end()) {
+        resultBuf = node->result; 
+    }
 }
