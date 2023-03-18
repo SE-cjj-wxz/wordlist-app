@@ -33,20 +33,29 @@ SCC::SCC(vector<int>& indices, vector<Node>& gNodes) {
 }
 
 void SCC::getLongestDist() {
+    int cnt = 0;
+    for (auto node = nodes.begin(); node != nodes.end(); node++) {
+        for (auto e = node->edges.begin(); e != node->edges.end(); e++) {
+            e->color = cnt++;
+        }
+    }
+
+    #pragma omp parallel for schedule(dynamic)
     for (int i = 0; i < nodes.size(); i++) {
-        vector<string> path;
+        vector<Edge*> path;
         vector<bool> vis(nodes.size(), false);
-        dfs(i, i, path, vis, 0); 
+        vector<bool> edgeVis(cnt, false);
+        dfs(i, i, path, vis, edgeVis, 0); 
     }
 }
 
-void SCC::dfs(int u, int root, vector<string>& path, vector<bool>& vis, int value) {
+void SCC::dfs(int u, int root, vector<Edge*>& path, vector<bool>& vis, vector<bool>& edgeVis, int value) {
     bool flag = false;
     if (!vis[u]) {
         vis[u] = 1;
         flag = true;
         for (auto e = nodes[u].circle.begin(); e != nodes[u].circle.end(); e++) {
-            path.push_back(e->word);
+            path.push_back(&(*e));
         }
         value += nodes[u].circleValue;
     }
@@ -58,11 +67,11 @@ void SCC::dfs(int u, int root, vector<string>& path, vector<bool>& vis, int valu
 
     for (auto e = nodes[u].edges.begin(); e != nodes[u].edges.end(); e++) {
         int v = e->to;
-        if (e->color == WHITE) {
-            e->color = GRAY;
-            path.push_back(e->word);
-            dfs(v, root, path, vis, value + e->value);
-            e->color = WHITE;
+        if (edgeVis[e->color] == false) {
+            edgeVis[e->color] = true;
+            path.push_back(&(*e));
+            dfs(v, root, path, vis, edgeVis, value + e->value);
+            edgeVis[e->color] = false;
             path.pop_back();
         }
     }

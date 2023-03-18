@@ -272,7 +272,9 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
 
             if (maxj >= 0) {
                 nodes[v].result = tempResult[maxj];
-                nodes[v].result.insert(nodes[v].result.end(), scc->path[maxj][i].begin(), scc->path[maxj][i].end());
+                for (auto e = scc->path[maxj][i].begin(); e != scc->path[maxj][i].end(); e++) {
+                    nodes[v].result.push_back((*e)->word);
+                }
             }
         }
         for (int i = 0; i < scc->indices.size(); i++) {
