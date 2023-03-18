@@ -50,6 +50,10 @@ void Graph::dfsCircle(int u, bool& circle) {
 }
 
 void Graph::countChains(vector<string>& resultBuf) {
+    if (hasCircle()) {
+        throw logic_error("there is a circle in the chain without -r");
+    }
+
     queue< vector<Node>::iterator > q;
     for (auto it = nodes.begin(); it != nodes.end(); it++) {
         if (it->degree == 0) {
@@ -105,7 +109,7 @@ void Graph::initNodeValue(char head) {
 
 void Graph::getLongestChain(vector<string>& resultBuf, char head, char tail, char ban, bool allow_circle) {
     if (!allow_circle && hasCircle()) {
-        throw exception(); // illegal circle
+        throw logic_error("there is a circle in the chain without -r");
     }
 
     if (ban != '\0') {
@@ -247,30 +251,27 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
 
     reverse(SCCs.begin(), SCCs.end());  //toposort
 
-    // for (auto scc = SCCs.begin(); scc != SCCs.end(); scc++) {
-    //     for (int i = 0; i < scc->indices.size(); i++) {
-    //         cout << char(scc->indices[i] + 'a') << " ";
-    //     }
-    //      cout << endl;
-    // } 
-
     for (auto scc = SCCs.begin(); scc != SCCs.end(); scc++) {
         vector<int> tempValue;
+        vector< vector<string> > tempResult;
         for (int i = 0; i < scc->indices.size(); i++) {
             tempValue.push_back(nodes[scc->indices[i]].value);
+            tempResult.push_back(nodes[scc->indices[i]].result); 
         }
         for (int i = 0; i < scc->indices.size(); i++) {
             int v = scc->indices[i];
             int maxj = -1;
+
             for (int j = 0; j < scc->indices.size(); j++) {
                 int u = scc->indices[j];
                 if (tempValue[j] >= 0 && tempValue[j] + scc->pathValue[j][i] > nodes[v].value) {
                     nodes[v].value = tempValue[j] + scc->pathValue[j][i];
-                    maxj = i;
+                    maxj = j;
                 }
             }
+
             if (maxj >= 0) {
-                nodes[v].result = nodes[scc->indices[maxj]].result;
+                nodes[v].result = tempResult[maxj];
                 nodes[v].result.insert(nodes[v].result.end(), scc->path[maxj][i].begin(), scc->path[maxj][i].end());
             }
         }
@@ -290,7 +291,7 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
     }
 
     int maxLen = 0;
-    vector<Node>::iterator node;
+    vector<Node>::iterator node = nodes.end();
 
     for (auto it = nodes.begin(); it != nodes.end(); it++) {
         // cout << char(it - nodes.begin() + 'a') << ": " << it->value << endl;
@@ -302,6 +303,7 @@ void Graph::getLongestChainOnCircle(vector<string>& resultBuf, char head, char t
             node = it;
         }
     }
-
-    resultBuf = node->result; 
+    if (node != nodes.end()) {
+        resultBuf = node->result; 
+    }
 }

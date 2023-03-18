@@ -11,7 +11,6 @@ public:
     int circleValue;
     int value;
     Edge* prev;
-    int preNode;
     vector<Edge> circle;
     vector<Edge> edges;
     vector<string> result;

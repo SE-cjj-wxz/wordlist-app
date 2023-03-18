@@ -2,6 +2,7 @@
 #define __SCC_H__
 
 #include "node.h"
+#include <set>
 
 class SCC {
 public:
@@ -12,7 +13,7 @@ public:
     
     explicit SCC(vector<int>& indices, vector<Node>& gNodes);
     void getLongestDist();
-    void dfs(int u, int root, vector<string>& path, int value);
+    void dfs(int u, int root, vector<string>& path, vector<bool>& vis, vector<bool>& edgeVis, int value);
 };
 
 #endif

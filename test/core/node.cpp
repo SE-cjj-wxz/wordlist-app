@@ -6,7 +6,6 @@ Node::Node() {
     value = 0;
     circleValue = 0;
     prev = 0;
-    preNode = -1;
 }
 
 void Node::addEdge(Edge e) {

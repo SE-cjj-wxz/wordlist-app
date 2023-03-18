@@ -91,7 +91,6 @@ void lexerArgs(int argc, char* argv[], map<char, char>& opt2val, string& fileNam
         string arg = argv[i];
         args.push(arg);
     }
-
     while (!args.empty()) {
         if (isOption(args.front())) {
             lexerOption(args, opt2val);
@@ -155,22 +154,21 @@ int WordList(int argc, char* argv[]) {
     map<char, char> opt2val;
     string fileName;
 
-    try {
         lexerArgs(argc, argv, opt2val, fileName);
         isLegalOpt(opt2val); 
-    
+        
         char **words = (char **) malloc(sizeof(char *) * MAX_WORDS_NUM);
         char **result = (char**) malloc (sizeof (char*) * MAX_CHAINS_NUM);
         int length = readWords(fileName, words);
         if (length == 0) {
             throw logic_error("the file content is empty");
         }
-
+        
         char head = (opt2val.count('h') > 0) ? opt2val['h'] : '\0';
         char tail = (opt2val.count('t') > 0) ? opt2val['t'] : '\0';
         char ban = (opt2val.count('j') > 0) ? opt2val['j'] : '\0'; 
         bool allow_circle = (opt2val.count('r'));
-
+        
         if (head == ban && ban != '\0') {
             throw logic_error("-h and -j cannot have the same value");
         }
@@ -212,13 +210,6 @@ int WordList(int argc, char* argv[]) {
             cout << s << endl;
             ans += s + '\n';
         }
-
-        outFile << ans;
-
-    } catch (exception& e) {
-        string err = e.what();
-        cerr << "error: " + err << endl; 
-    }
 
     return 0;
 }

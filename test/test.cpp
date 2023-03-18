@@ -319,7 +319,8 @@ TEST(testCase, test15) {
 	try {
 		int ans = getLongestWordChain(words, len, result, head, tail, ban, circ);
 	} catch(exception& e) {
-		EXPECT_EQ(e.what(), str);	
+		string err = e.what();
+		EXPECT_EQ(err, str);	
 	}
 }
 
@@ -379,11 +380,12 @@ TEST(testCase, test18) {
 TEST(testCase, test19) {
 	int argc = 4; 
 	char* argv[] = {
+		" ",
 		"-n",
 		"-n",
 		"input.txt"
 	};
-	string str = "duplicate option: -n"
+	string str = "duplicate option: -n";
 	try {
 		WordList(argc, argv);
 	} catch(exception& e) {
@@ -395,6 +397,7 @@ TEST(testCase, test19) {
 TEST(testCase, test20) {
 	int argc = 4;
 	char* argv[] = {
+		" ",
 		"-n",
 		"input.txt",
 		"-h"
@@ -411,6 +414,7 @@ TEST(testCase, test20) {
 TEST(testCase, test21) {
 	int argc = 5;
 	char* argv[] = {
+		" ",
 		"-h",
 		"an",
 		"-n",
@@ -428,6 +432,7 @@ TEST(testCase, test21) {
 TEST(testCase, test22) {
 	int argc = 5;
 	char* argv[] = {
+		" ",
 		"-b",
 		"a",
 		"-n",
@@ -445,6 +450,7 @@ TEST(testCase, test22) {
 TEST(testCase, test23) {
 	int argc = 4;
 	char* argv[] = {
+		" ",
 		"-n",
 		"input.txt",
 		"input2.txt"
@@ -461,6 +467,7 @@ TEST(testCase, test23) {
 TEST(testCase, test24) {
 	int argc = 3;
 	char* argv[] = {
+		" ",
 		"-r",
 		"input.txt",
 	};
@@ -476,6 +483,7 @@ TEST(testCase, test24) {
 TEST(testCase, test25) {
 	int argc = 4;
 	char* argv[] = {
+		" ",
 		"-n",
 		"-w",
 		"input.txt",
@@ -492,6 +500,7 @@ TEST(testCase, test25) {
 TEST(testCase, test26) {
 	int argc = 3;
 	char* argv[] = {
+		" ",
 		"-n",
 		"input2.txt",
 	};
@@ -522,6 +531,7 @@ TEST(testCase, test27) {
 TEST(testCase, test28) {
 	int argc = 4;
 	char* argv[] = {
+		" ",
 		"-n",
 		"-r",
 		"input.txt",
@@ -570,13 +580,14 @@ TEST(testCase, test30) {
 TEST(testCase, test31) {
 	int argc = 8;
 	char* argv[] = {
+		" ",
 		"-w",
 		"-h",
 		"a",
 		"-j",
 		"a",
-		"-r"
-		"input.txt",
+		"-r",
+		"input.txt"
 	};
 	string str = "-h and -j cannot have the same value";
 	try {

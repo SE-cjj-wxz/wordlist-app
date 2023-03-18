@@ -6,7 +6,6 @@
 #include <set>
 #include <queue>
 #include "core.h"
-
 using namespace std; 
 
 int WordList(int argc, char* argv[]);

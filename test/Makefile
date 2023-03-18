@@ -1,6 +1,6 @@
 all:
 	g++ core/*.cpp WordList.cpp test.cpp -I ./include -c -fprofile-arcs -ftest-coverage 
-	g++ *.o -lgcov -lgtest -lpthread -o test 
+	g++ *.o -lgcov -lgtest -lpthread -fopenmp -o test 
 	
 run:
 	./test
@@ -14,3 +14,4 @@ clean:
 	rm *.gcda 
 	rm test.info 
 	rm -r result 
+	

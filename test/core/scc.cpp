@@ -27,45 +27,67 @@ SCC::SCC(vector<int>& indices, vector<Node>& gNodes) {
             pathValue[i][j] = 0; 
         }
     }
+    // if (nodes.size() > 1) {
+    //     print(); 
+    // }
 }
 
 void SCC::getLongestDist() {
+    int cnt = 0;
+    for (auto node = nodes.begin(); node != nodes.end(); node++) {
+        for (auto e = node->edges.begin(); e != node->edges.end(); e++) {
+            e->color = cnt++;
+        }
+    }
+
+    #pragma omp parallel for schedule(dynamic)
     for (int i = 0; i < nodes.size(); i++) {
         vector<string> path;
-        dfs(i, i, path, 0); 
+        vector<bool> vis(nodes.size(), false);
+        vector<bool> edgeVis(cnt, false);
+        dfs(i, i, path, vis, edgeVis, 0); 
     }
 }
 
-void SCC::dfs(int u, int root, vector<string>& path, int value) {
-    for (auto e = nodes[u].circle.begin(); e != nodes[u].circle.end(); e++) {
-        path.push_back(e->word);
+void SCC::dfs(int u, int root, vector<string>& path, vector<bool>& vis, vector<bool>& edgeVis, int value) {
+    bool flag = false;
+    if (!vis[u]) {
+        vis[u] = 1;
+        flag = true;
+        for (auto e = nodes[u].circle.begin(); e != nodes[u].circle.end(); e++) {
+            path.push_back(e->word);
+        }
+        value += nodes[u].circleValue;
     }
-    value += nodes[u].circleValue;
-    nodes[u].circle.clear();
-    nodes[u].circleValue = 0;
 
     if (value > pathValue[root][u]) {
         pathValue[root][u] = value;
         this->path[root][u] = path; 
     }
 
-    if (u+'a' == 't' && u == root) {
-        cout << pathValue[u][root] << endl;
-    }
-
     for (auto e = nodes[u].edges.begin(); e != nodes[u].edges.end(); e++) {
         int v = e->to;
-        if (e->color == WHITE) {
-            e->color = GRAY;
+        if (edgeVis[e->color] == false) {
+            edgeVis[e->color] = true;
             path.push_back(e->word);
-            dfs(v, root, path, value + e->value);
-            e->color = WHITE;
+            dfs(v, root, path, vis, edgeVis, value + e->value);
+            edgeVis[e->color] = false;
             path.pop_back();
         }
+        // if (e->color == WHITE) {
+        //     e->color = GRAY;
+        //     path.push_back(e->word);
+        //     dfs(v, root, path, vis, edgeVis, value + e->value);
+        //     e->color = WHITE;
+        //     path.pop_back();
+        // }
     }
-    for (auto e = nodes[u].circle.begin(); e != nodes[u].circle.end(); e++) {
-        path.pop_back();
-        value -= e->value; 
+    if (flag) {
+        for (auto e = nodes[u].circle.begin(); e != nodes[u].circle.end(); e++) {
+            path.pop_back();
+        }
+        value -= nodes[u].circleValue; 
+        vis[u] = 0; 
     }
 }
 
