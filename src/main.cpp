@@ -177,6 +177,9 @@ int main(int argc, char* argv[]) {
 
         int ret;
 
+        ofstream outFile("solution.txt", ios::trunc);
+        string ans;
+
         if (opt2val.count('n') > 0) {
             if (opt2val.count('h') + opt2val.count('t') + opt2val.count('j') + opt2val.count('r') 
             + opt2val.count('w') + opt2val.count('c') > 0) {
@@ -186,6 +189,8 @@ int main(int argc, char* argv[]) {
             if (ret == 0) {
                 throw logic_error("there is no matching result");
             }
+            cout << ret << endl;
+            ans += to_string(ret) + '\n';
         } else if (opt2val.count('w') > 0) {
             ret = getLongestWordChain(words, length, result, head, tail, ban, allow_circle);
             if (ret <= 1) {
@@ -205,7 +210,11 @@ int main(int argc, char* argv[]) {
         for (int i = 0; i < ret; i++) {
             string s = result[i];
             cout << s << endl;
+            ans += s + '\n';
         }
+
+        outFile << ans;
+
     } catch (exception& e) {
         string err = e.what();
         cerr << "error: " + err << endl; 
