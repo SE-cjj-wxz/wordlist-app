@@ -1,6 +1,5 @@
 build
 input.txt
-bin 
 .vscode 
 .cache
 cmake-build-debug
