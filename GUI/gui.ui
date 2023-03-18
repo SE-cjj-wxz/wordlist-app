@@ -646,7 +646,7 @@ QPushButton:pressed{
                <item>
                 <widget class="QLabel" name="timer">
                  <property name="text">
-                  <string>用时：0.05s</string>
+                  <string>用时：0.00s</string>
                  </property>
                 </widget>
                </item>

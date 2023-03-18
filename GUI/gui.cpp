@@ -169,7 +169,7 @@ GUI::GUI(QWidget *parent)
         double distance = double(end - start) / 1000; //单位为s
 
         std::stringstream s;
-        s << std::setprecision(15) << distance;
+        s << std::setprecision(4) << distance;
         std::string timer = "用时：" + s.str() + "s";
         ui->timer->setText(QString::fromStdString(timer));
 
