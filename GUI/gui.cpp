@@ -119,7 +119,7 @@ GUI::GUI(QWidget *parent)
         length = getWords(input, words);
         
         //链接使用核心模块库
-        // HMODULE core = LoadLibraryA("core.dll");
+        HMODULE core = LoadLibraryA("core.dll");
 
         QString res;
         std::string ans = "";
@@ -174,7 +174,7 @@ GUI::GUI(QWidget *parent)
         ui->timer->setText(QString::fromStdString(timer));
 
         //释放核心链接库
-        // FreeLibrary(core);
+        FreeLibrary(core);
         free(words);
         free(result);
     });
